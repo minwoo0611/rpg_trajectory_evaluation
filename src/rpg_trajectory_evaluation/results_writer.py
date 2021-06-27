@@ -73,3 +73,27 @@ def write_tex_table(list_values, rows, cols, outfn):
             for col_idx in range(len(row_values) - 1):
                 f.write(row_values[col_idx] + ' & ')
             f.write(' ' + row_values[-1]+' \n')
+
+def save_algorithm_rmse(algorithm_rmse, dataset_names, algorithm_names,
+                        output_dir):
+    n_data = len(dataset_names)                    
+    for v in algorithm_names:
+        assert len(algorithm_rmse['trans_err'][v]) == n_data
+        assert len(algorithm_rmse['rot_err'][v]) == n_data
+
+    output_names = ["ate_rmse_trans.txt", "ate_rmse_rot.txt"]
+    keys = ["trans_err", "rot_err"]
+    for index, outputname in enumerate(output_names):
+        output_file = os.path.join(output_dir, outputname)
+        with open(output_file, 'w') as stream:
+            for v in algorithm_names:
+                stream.write('{}'.format(v))
+                sessiontrials = algorithm_rmse[keys[index]][v]
+                for session in sessiontrials:
+                    for trial in session:
+                        stream.write(' {}'.format(trial))
+                    stream.write(',')
+                stream.write('\n')
+            stream.write('\n')
+
+

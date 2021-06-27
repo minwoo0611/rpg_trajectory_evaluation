@@ -576,6 +576,7 @@ if __name__ == '__main__':
         rmse_plot_alg = [v for v in algorithms]
         algorithm_rmse = collect_rmse_per_dataset(config_multierror_list,
                                                   rmse_plot_alg)
+        res_writer.save_algorithm_rmse(algorithm_rmse, datasets, algorithms, output_dir)
         print("--- Generate boxplot for RMSE ---")
         plot_rmse_per_dataset(algorithm_rmse, datasets, algorithms,
                               output_dir, plot_settings)
