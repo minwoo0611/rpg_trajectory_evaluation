@@ -74,7 +74,7 @@ def write_tex_table(list_values, rows, cols, outfn):
                 f.write(row_values[col_idx] + ' & ')
             f.write(' ' + row_values[-1]+' \n')
 
-def save_algorithm_rmse(algorithm_rmse, dataset_names, algorithm_names,
+def save_algorithm_rmse(algorithm_rmse, dataset_names, algorithm_names, n_trials,
                         output_dir):
     n_data = len(dataset_names)                    
     for v in algorithm_names:
@@ -86,13 +86,19 @@ def save_algorithm_rmse(algorithm_rmse, dataset_names, algorithm_names,
     for index, outputname in enumerate(output_names):
         output_file = os.path.join(output_dir, outputname)
         with open(output_file, 'w') as stream:
+            stream.write("#Rows correspond to algorithms")
             for v in algorithm_names:
-                stream.write('{}'.format(v))
+                stream.write(',{}'.format(v))
+            stream.write(', on {} datasets x {} trials. Missing RMSE is filled with inf.\n'.format(
+                n_data, n_trials))
+            for v in algorithm_names:
                 sessiontrials = algorithm_rmse[keys[index]][v]
                 for session in sessiontrials:
+                    pad = n_trials - len(session)
+                    for j in range(pad):
+                        stream.write(' inf')
                     for trial in session:
                         stream.write(' {}'.format(trial))
-                    stream.write(',')
                 stream.write('\n')
             stream.write('\n')
 
