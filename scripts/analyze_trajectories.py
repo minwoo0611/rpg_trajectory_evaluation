@@ -32,6 +32,7 @@ def spec(N):
 
 PALLETE = spec(20)
 
+PALLETE = ['b', 'g', 'r', 'c', 'k', 'y', 'm']
 
 def collect_odometry_error_per_dataset(dataset_multierror_list,
                                        dataset_names):
