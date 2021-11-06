@@ -43,6 +43,11 @@ def extract(bagfile, pose_topic, msg_type, out_filename):
                          msg.pose.pose.orientation.x, msg.pose.pose.orientation.y,
                          msg.pose.pose.orientation.z, msg.pose.pose.orientation.w, 
                          msg.twist.twist.linear.x, msg.twist.twist.linear.y, msg.twist.twist.linear.z))
+            elif msg_type == "Imu":
+                f.write('%.12f %.8f %.8f %.8f %.8f %.8f %.8f\n' %
+                        (msg.header.stamp.to_sec(),
+                         msg.angular_velocity.x, msg.angular_velocity.y, msg.angular_velocity.z,
+                         msg.linear_acceleration.x, msg.linear_acceleration.y, msg.linear_acceleration.z))
             else:
                 assert False, "Unknown message type"
             n += 1
