@@ -1,6 +1,8 @@
 # rpg_trajectory_evaluation
 ## Changed
-
+If you are a user having used the rpg evaluator, you have an experience that the trajectory is aligned correctly, but a big difference in rotation error as follows.
+![traj](./doc/translation_error.pdf)
+![rotErr](./doc/rotation_error.pdf)
 ##
 This repository implements common used trajectory evaluation methods for visual(-inertial) odometry. Specifically, it includes
 * Different trajectory alignment methods (rigid-body, similarity and yaw-only rotation)
