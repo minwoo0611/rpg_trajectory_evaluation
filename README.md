@@ -10,7 +10,7 @@ The reason for the rotation error is the axes of each frame are not aligned well
 The rotation of the initial frame may have different between ground truth and estimate depending on the measurement time or sensor. Also, it is difficult to observe, and it is difficult to know how much rotation difference there is.
 Therefore, we utilized open3d to be able to observe it, and change the code to acquire how much it should be rotated. To align the initial rotation to zero for ground truth and estimate, gtsam is exploited.
 
-Thanks [Giseop Kim](https://github.com/gisbi-kim) for providing application examples on point clouds.
+Thanks [Giseop Kim](https://github.com/gisbi-kim) for providing code.
 ## Example
 With the command below, we can check the axis of each trajectory.
 ```
