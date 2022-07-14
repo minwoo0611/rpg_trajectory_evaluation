@@ -15,14 +15,21 @@ python3 check/drawer_gt_reorigin.py
 '''
 The left image is the trajectory of groundtruth and the right image is the trajectory of estimate. Except for z-axis (blue), the x-axis (red) and the y-axis (green) are note aligned. (you can check it /results/example_without_rot_align)
 
-![gt](./doc/gt.png)
-![est](./doc/estimate.png)
+<p align='center'>
+    <img src="./doc/gt.png" alt="drawing" width="300"/>
+</p>
+<p align='center'>
+    <img src="./doc/estimate.png" alt="drawing" width="300"/>
+</p>
 
 The following command gives SO3 in its initial position(LONG SENTENCE)
 '''
 python2 scripts/analyze_trajectory_single.py results/example
 '''
-![SO3](./doc/SO3.png)
+
+<p align='center'>
+    <img src="./doc/SO3.png" alt="drawing" width="300"/>
+</p>
 
 Change the _l2c in /check/drawer_est_lidarcoord.py using SO3 and re-command
 '''
@@ -31,10 +38,12 @@ python3 check/drawer_gt_reorigin.py (Actually, it is not needed if you command b
 '''
 
 If process are done well, groundtruth and estimated trajectory is well aligned.
-
-![gt](./doc/gt.png)
-![alignEst](./doc/alignEst.png)
-
+<p align='center'>
+    <img src="./doc/gt.png" alt="drawing" width="300"/>
+</p>
+<p align='center'>
+    <img src="./doc/alignEst.png" alt="drawing" width="300"/>
+</p>
 Then, you can see two files, /results/example_without_rot_align/stamped_groundtruth.txt and /results/example_without_rot_align/stamped_traj_estimate.txt.
 
 Finally, you can get aligned trajectories.
@@ -43,8 +52,12 @@ python2 scripts/analyze_trajectory_single.py results/example
 '''
 
 Left image is before aligned, and right image is processed using gtsam.
-![rotErr](./doc/rotationErr.png)
-![alignrotErr](./doc/alignRot.png)
+<p align='center'>
+    <img src="./doc/rotationErr.png" alt="drawing" width="300"/>
+</p>
+<p align='center'>
+    <img src="./doc/alignRot.png" alt="drawing" width="300"/>
+</p>
 
 ##
 This repository implements common used trajectory evaluation methods for visual(-inertial) odometry. Specifically, it includes
