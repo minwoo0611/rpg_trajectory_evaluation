@@ -8,12 +8,10 @@ import yaml
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-import matplotlib.lines as mlines
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import rc
-rc('font', **{'family': 'serif', 'serif': ['Cardo']})
+rc('font', **{'family': 'serif', 'serif': ['Cardo'], 'size': 15})
 rc('text', usetex=True)
-
 FORMAT = '.pdf'
 
 
@@ -29,6 +27,7 @@ def color_box(bp, color):
 def boxplot_compare(ax, xlabels,
                     data, data_labels, data_colors,
                     legend=True):
+
     n_data = len(data)
     n_xlabel = len(xlabels)
     leg_handles = []
@@ -43,16 +42,20 @@ def boxplot_compare(ax, xlabels,
         # print("Positions: {0}".format(positions))
         bp = ax.boxplot(d, 0, '', positions=positions, widths=widths)
         color_box(bp, data_colors[idx])
-        leg_line = mlines.Line2D([], [], color=data_colors[idx])
-        leg_handles.append(leg_line)
+        tmp, = plt.plot([1, 1], c=data_colors[idx], alpha=1)
+        leg_handles.append(tmp)
         leg_labels.append(data_labels[idx])
         idx += 1
 
     ax.set_xticks(np.arange(n_xlabel))
     ax.set_xticklabels(xlabels)
     xlims = ax.get_xlim()
-    ax.set_xlim([xlims[0]-0.1, xlims[1]-0.1])
-    if legend:
+    ylims = ax.get_ylim()
+    #ax.set_xlim([xlims[0]-0.1, xlims[1]-0.1])
+    #if not legend: #translation
+#	ax.set_ylim([-0.2, 8.3])
+    if legend: #rotation
+	#ax.set_ylim([-0.01, 0.5])
         # ax.legend(leg_handles, leg_labels, bbox_to_anchor=(
             # 1.05, 1), loc=2, borderaxespad=0.)
         ax.legend(leg_handles, leg_labels)
@@ -68,6 +71,16 @@ def plot_trajectory_top(ax, pos, color, name, alpha=1.0):
 def plot_trajectory_side(ax, pos, color, name, alpha=1.0):
     ax.grid(ls='--', color='0.7')
     # pos_0 = pos - pos[0, :]
+    f = open('/home/jmw0611/'+name+'.txt','w')
+    for i in range(0, len(pos)):
+	f.write(str(pos[i,0]))
+	f.write(" ")
+	f.write(str(pos[i,1]))
+	f.write(" ")
+	f.write(str(pos[i,2]))
+	f.write("\n")
+    f.close()
+    print(name, pos[:,0:3])
     ax.plot(pos[:, 0], pos[:, 2], color, linestyle='-', alpha=alpha, label=name)
 
 

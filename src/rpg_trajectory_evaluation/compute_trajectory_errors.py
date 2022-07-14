@@ -66,7 +66,13 @@ def compute_relative_error(p_es, q_es, p_gt, q_gt, T_cm, dist, max_dist_diff,
 
 
 def compute_absolute_error(p_es_aligned, q_es_aligned, p_gt, q_gt):
+    ##here
     e_trans_vec = (p_gt-p_es_aligned)
+    x = e_trans_vec[:,0]
+    y = e_trans_vec[:,1]
+    z = e_trans_vec[:,2]
+    #rmse_matrix = e_trans_vec[:, 2] #if you want only z-axis evaluation 
+    #e_trans = np.sqrt(np.sum(rmse_matrix**2, 1)) # same as above
     e_trans = np.sqrt(np.sum(e_trans_vec**2, 1))
 
     # orientation error
@@ -78,6 +84,10 @@ def compute_absolute_error(p_es_aligned, q_es_aligned, p_gt, q_gt):
         e_R = np.dot(R_we, np.linalg.inv(R_wg))
         e_ypr[i, :] = tf.euler_from_matrix(e_R, 'rzyx')
         e_rot[i] = np.rad2deg(np.linalg.norm(tf.logmap_so3(e_R[:3, :3])))
+	if(i == 0):
+	    print("Error with rotation at first")
+            invMat = np.linalg.inv(e_R[:3, :3])
+            print(invMat[0][0], invMat[0][1], invMat[0][2], 0, invMat[1][0], invMat[1][1], invMat[1][2], 0, invMat[2][0], invMat[2][1], invMat[2][2], 0)
 
     # scale drift
     motion_gt = np.diff(p_gt, 0)
