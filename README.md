@@ -1,65 +1,62 @@
 # rpg_trajectory_evaluation
 ## Changed
 If you are a user having used the rpg evaluator, you have an experience that the trajectory is aligned correctly, but a big difference in rotation error as follows.
-![traj](./doc/translationErr.png)
-![rotErr](./doc/rotationErr.png)
+<p align='center'>
+    <img src="./doc/translationErr.png" alt="drawing" width="200"/>
+    <img src="./doc/rotationErr.png" alt="drawing" width="700"/>
+</p>
+
 The reason for the rotation error is the axes of each frame are not aligned well.
 The rotation of the initial frame may have different between ground truth and estimate depending on the measurement time or sensor. Also, it is difficult to observe, and it is difficult to know how much rotation difference there is.
 Therefore, we utilized open3d to be able to observe it, and change the code to acquire how much it should be rotated. To align the initial rotation to zero for ground truth and estimate, gtsam is exploited.
 
 ## Example
 With the command below, we can check the axis of each trajectory.
-'''
+```
 python3 check/drawer_est_lidarcoord.py
 python3 check/drawer_gt_reorigin.py 
-'''
+```
 The left image is the trajectory of groundtruth and the right image is the trajectory of estimate. Except for z-axis (blue), the x-axis (red) and the y-axis (green) are note aligned. (you can check it /results/example_without_rot_align)
 
 <p align='center'>
     <img src="./doc/gt.png" alt="drawing" width="300"/>
-</p>
-<p align='center'>
     <img src="./doc/estimate.png" alt="drawing" width="300"/>
 </p>
 
 The following command gives SO3 in its initial position(LONG SENTENCE)
-'''
+```
 python2 scripts/analyze_trajectory_single.py results/example
-'''
+```
 
 <p align='center'>
-    <img src="./doc/SO3.png" alt="drawing" width="300"/>
+    <img src="./doc/SO3.png" alt="drawing" width="1000"/>
 </p>
 
 Change the _l2c in /check/drawer_est_lidarcoord.py using SO3 and re-command
-'''
+```
 python3 check/drawer_est_lidarcoord.py
 python3 check/drawer_gt_reorigin.py (Actually, it is not needed if you command before)
-'''
+```
 
 If process are done well, groundtruth and estimated trajectory is well aligned.
 <p align='center'>
     <img src="./doc/gt.png" alt="drawing" width="300"/>
-</p>
-<p align='center'>
     <img src="./doc/alignEst.png" alt="drawing" width="300"/>
 </p>
 Then, you can see two files, /results/example_without_rot_align/stamped_groundtruth.txt and /results/example_without_rot_align/stamped_traj_estimate.txt.
 
 Finally, you can get aligned trajectories.
-'''
+```
 python2 scripts/analyze_trajectory_single.py results/example
-'''
+```
 
 Left image is before aligned, and right image is processed using gtsam.
 <p align='center'>
-    <img src="./doc/rotationErr.png" alt="drawing" width="300"/>
-</p>
-<p align='center'>
-    <img src="./doc/alignRot.png" alt="drawing" width="300"/>
+    <img src="./doc/rotationErr.png" alt="drawing" width="500"/>
+    <img src="./doc/alignRot.png" alt="drawing" width="500"/>
 </p>
 
-##
+## Original
 This repository implements common used trajectory evaluation methods for visual(-inertial) odometry. Specifically, it includes
 * Different trajectory alignment methods (rigid-body, similarity and yaw-only rotation)
 * Commonly used error metrics: Absolute Trajectory Error (ATE) and Relative/Odometry Error (RE)
