@@ -3,7 +3,7 @@
 If you are a user having used the rpg evaluator, you have an experience that the trajectory is aligned correctly, but a big difference in rotation error as follows.
 <p align='center'>
     <img src="./doc/translationErr.png" alt="drawing" width="200"/>
-    <img src="./doc/rotationErr.png" alt="drawing" width="700"/>
+    <img src="./doc/rotationErr.png" alt="drawing" width="600"/>
 </p>
 
 The reason for the rotation error is the axes of each frame are not aligned well.
