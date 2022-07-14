@@ -1,5 +1,7 @@
 # rpg_trajectory_evaluation
+## Changed
 
+##
 This repository implements common used trajectory evaluation methods for visual(-inertial) odometry. Specifically, it includes
 * Different trajectory alignment methods (rigid-body, similarity and yaw-only rotation)
 * Commonly used error metrics: Absolute Trajectory Error (ATE) and Relative/Odometry Error (RE)
